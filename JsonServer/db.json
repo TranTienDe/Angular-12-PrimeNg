@@ -20,6 +20,27 @@
       "note": "Hello",
       "author": "Huy",
       "authorId": 2
+    },
+    {
+      "id": 4,
+      "title": "Note số 3",
+      "note": "Hôm nay làm Notes App.",
+      "author": "Huy Nguyễn",
+      "authorId": 1
+    },
+    {
+      "id": 5,
+      "title": "Note số 5",
+      "note": "Hôm nay học Angular",
+      "author": "Huy Nguyễn",
+      "authorId": 1
+    },
+    {
+      "id": 6,
+      "title": "Note số 6",
+      "note": "Tìm hiểu về Toast.",
+      "author": "Huy Nguyễn",
+      "authorId": 1
     }
   ],
   "posts": [

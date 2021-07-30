@@ -1,19 +1,24 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DataService } from './data.service';
+import { Note } from './models/note.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [MessageService]
+
 })
 export class AppComponent {
   public title = 'Angular12PrimeNg';
   public items: MenuItem[] = [];
-  public notes = null;
-  public selectedNote: any = null;
+  public notes: Note[] | undefined;
+  public selectedNote: Note | undefined;
+  public newNote: Note | undefined;
+  public authorId: number = 1;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private messageService: MessageService) { }
 
   public ngOnInit() {
     this.items = [
@@ -79,10 +84,56 @@ export class AppComponent {
     });
   }
 
-  public editNote(note: any){
-      console.log('Note:',  note);
-      this.selectedNote = note;
+  public viewNote(note: Note) {
+    console.log('View note:', note);
+    this.selectedNote = note;
   }
 
+  public getSelectedClass(note: Note): string {
+    if (!this.selectedNote) return '';
+    return this.selectedNote.id === note.id ? 'selected' : 'noneSelected';
+  }
+
+  public addNote(): void {
+    console.log('addNote');
+    this.newNote = {
+      id: 0,
+      title: '',
+      note: '',
+      author: 'Huy Nguyễn',
+      authorId: this.authorId
+    };
+  }
+
+  public cancelAddNote(): void {
+    this.newNote = undefined;
+    this.messageService.add({ severity: 'info', summary: 'Thông báo', detail: 'Đã hủy thông tin note!' });
+  }
+
+  public saveNote(): void {
+    console.log('saveNote', this.newNote);
+    if (!this.newNote) return;
+    this.showConfirm();
+  }
+
+  showConfirm() {
+    this.messageService.clear();
+    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+  }
+
+  onConfirm() {
+    this.messageService.clear('c');
+
+    this.dataService.postNotes(this.newNote).subscribe(result => {
+      console.log('result', result);
+      this.notes?.push(result);
+      this.newNote = undefined;
+    });
+
+  }
+
+  onReject() {
+    this.messageService.clear('c');
+  }
 
 }
