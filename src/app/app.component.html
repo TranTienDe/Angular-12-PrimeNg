@@ -1,26 +1,29 @@
-<h5>Basic</h5>
-<p-button label="Submit"></p-button>
-<p-button label="Disabled"></p-button>
-<p-button label="Link" styleClass="p-button-link"></p-button>
-<br />
-<p-card header="Advanced Card" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow">
-  <ng-template pTemplate="header">
-      <!-- <img alt="Card" src="assets/showcase/images/usercard.png"> -->
-  </ng-template>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
-  <ng-template pTemplate="footer">
-      <p-button label="Save" icon="pi pi-check"></p-button>
-      <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
-  </ng-template>
-</p-card>
-
-<br />
+<h2>Notes App</h2>
 <p-menubar [model]="items">
-  <ng-template pTemplate="start">
-      <img src="assets/showcase/images/primeng.svg" height="40" class="p-mr-2">
-  </ng-template>
   <ng-template pTemplate="end">
-      <input type="text" pInputText placeholder="Search">
+    <input type="text" pInputText placeholder="Search">
   </ng-template>
 </p-menubar>
+
+<div class="card">
+  <h5>Horizontal</h5>
+  <p-splitter [style]="{'height': '300px'}" styleClass="p-mb-5" [panelSizes]="[20,80]">
+    <ng-template pTemplate>
+      <div class="p-col p-d-flex p-ai-center p-jc-center">
+        <li *ngFor="let note of notes" style="cursor: pointer;" (click)="editNote(note)">
+          {{ note.note }}
+        </li>
+      </div>
+    </ng-template>
+    <ng-template pTemplate>
+      <div class="p-col p-d-flex p-ai-center p-jc-center" *ngIf="selectedNote">
+        <span style="font-weight: bold;">
+          {{ selectedNote?.title }}
+        </span>
+        <br />
+        <br />
+        {{ selectedNote?.note}}
+      </div>
+    </ng-template>
+  </p-splitter>
+</div>

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MenubarModule } from 'primeng/menubar';
+import { SplitterModule } from 'primeng/splitter';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,10 +17,11 @@ import { MenubarModule } from 'primeng/menubar';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ButtonModule,
     CardModule,
     MenubarModule,
-
+    SplitterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
